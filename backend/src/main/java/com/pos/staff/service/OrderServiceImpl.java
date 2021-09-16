@@ -1,8 +1,11 @@
 package com.pos.staff.service;
+
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,72 +27,71 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private OrderDao orderDao;
-	
+
 	@Autowired
 	private CustomerDao customerDao;
-	
+
 	@Autowired
 	private AddressDao addressDao;
-	
+
 	@Autowired
 	private ProductDao productDao;
-	
-			
+
 	@Override
-	public String deleteOrder(Long orderId) {
-			
-		if(!orderDao.existsById(orderId)) {
-			throw new ProductIdNotFoundException("id not found");
-	    }
-		
-		return orderDao.findById(orderId)
-	            .map(order -> {
-	                orderDao.delete(order);
-	                   return "deleted successfully!";
-	              }).orElseThrow(() -> new ProductIdNotFoundException("error finding id"));
+	public String deleteOrder(Integer orderId) {
+
+		return orderDao.findById(orderId).map(order -> {
+			orderDao.delete(order);
+			return "deleted successfully!";
+		}).orElseThrow(() -> new ProductIdNotFoundException("error finding id"));
 	}
 
 	@Override
-	public String updateOrder(Long orderId, Order orderUpdated){
-			
-		return orderDao.findById(orderId)
-				.map(order -> {
-					order.setDate(orderUpdated.getDate());
-					order.setTotalPrice(orderUpdated.getTotalPrice());
-					order.setDiscount(orderUpdated.getDiscount());
-					order.setModeOfPayment(orderUpdated.getModeOfPayment());
-					order.setStatus(orderUpdated.getStatus());
-						
-					orderDao.save(order);
-					return "Order updated successfully!";
-		}).orElseThrow(()-> new ProductIdNotFoundException("error updating"));	
+	public String updateOrder(Integer orderId, Order orderUpdated) {
+
+		return orderDao.findById(orderId).map(order -> {
+			order.setTotalPrice(orderUpdated.getTotalPrice());
+			order.setDiscount(orderUpdated.getDiscount());
+			order.setModeOfPayment(orderUpdated.getModeOfPayment());
+			order.setStatus(orderUpdated.getStatus());
+			order.setTracking(orderUpdated.getTracking());
+			orderDao.save(order);
+			return "Order updated successfully!";
+		}).orElseThrow(() -> new ProductIdNotFoundException("error updating"));
 	}
 
 	@Override
-	public ResponseEntity<String> addOrder(Order order) {
-		
+	public ResponseEntity<String> addOrder(Long customerId, Long addressId, Order order) {
+		if (!customerDao.existsById(customerId)) {
+			return new ResponseEntity<String>("No Customer Found!", new HttpHeaders(), HttpStatus.OK);
+		}
+		if (!addressDao.existsById(addressId)) {
+			return new ResponseEntity<String>("No Address Found!", new HttpHeaders(), HttpStatus.OK);
+		}
+		Customer customer = customerDao.findById(customerId).get();
+		order.setCustomer(customer);
+		Address address = addressDao.findById(addressId).get();
+		order.setAddress(address);
 		orderDao.save(order);
-		System.out.println(order);
-		return null;
-				 
+		return new ResponseEntity<String>("Order Details Added Successfully!", new HttpHeaders(), HttpStatus.OK);
+
 	}
-			
+
 	@Override
-	public Order getOrderById(Long orderId) {
+	public Order getOrderById(Integer orderId) {
 		Optional<Order> optionalOrder = orderDao.findById(orderId);
-			if(optionalOrder.isPresent()) {
-		    	return optionalOrder.get();
-		    }else {
-		    	throw new ProductIdNotFoundException("id not found");
-		    }	
+		if (optionalOrder.isPresent()) {
+			return optionalOrder.get();
+		} else {
+			throw new ProductIdNotFoundException("id not found");
+		}
 	}
 
 	@Override
 	public List<Order> getAllOrder() {
-			
 		return orderDao.findAll();
-			
+
 	}
+
+	
 }
-
-

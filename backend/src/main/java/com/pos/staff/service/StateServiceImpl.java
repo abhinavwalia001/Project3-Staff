@@ -32,9 +32,12 @@ public class StateServiceImpl implements StateService{
 
 	@Override
 	public ResponseEntity<String> addState(Long countryId, State state) {
-		Country countryModel = countryDao.getById(countryId);
-		state.setCountry(countryModel);
-		return new ResponseEntity<String>("State Details Added Successfully!",new HttpHeaders(),HttpStatus.OK);
+		return countryDao.findById(countryId)
+				.map(country->{
+					state.setCountry(country);
+					stateDao.save(state);
+					return new ResponseEntity<String>("State Details Added Successfully!",new HttpHeaders(),HttpStatus.OK);
+				}).orElse(new ResponseEntity<String>("Country Not Found",new HttpHeaders(),HttpStatus.OK)); 
 
 	}
 	

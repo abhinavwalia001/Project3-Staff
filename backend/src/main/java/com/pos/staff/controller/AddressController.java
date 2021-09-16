@@ -31,7 +31,7 @@ public class AddressController {
 	@Autowired
 	private AddressService addressService;
 	
-	@PostMapping("/add-address/{stateId}/state/{customerId}")
+	@PostMapping("/add-address/{stateId}/{customerId}")
 	public ResponseEntity<String> addAddress(@PathVariable("stateId") Long stateId,@PathVariable("customerId") Long customerId,@RequestBody Address address)
 	{
 		return addressService.addAddress(stateId,customerId,address);

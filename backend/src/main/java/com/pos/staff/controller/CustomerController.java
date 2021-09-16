@@ -25,7 +25,7 @@ import com.pos.staff.service.CustomerService;
 import com.pos.staff.service.OrderService;
 
 @RestController
-@RequestMapping("/address")
+@RequestMapping("/customer")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
 

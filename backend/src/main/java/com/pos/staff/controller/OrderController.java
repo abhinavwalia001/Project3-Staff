@@ -34,34 +34,33 @@ public class OrderController {
 	@Autowired
 	OrderService orderService;
 	
-	@PostMapping("/add-order")
-	public ResponseEntity<String> addAddress(@RequestBody Order order)
+	@PostMapping("/add-order/{customerId}/{addressId}")
+	public ResponseEntity<String> addAddress(@PathVariable("customerId") Long customerId,@PathVariable("addressId") Long addressId,@RequestBody Order order)
 	{
 		System.out.println(order);
-		return orderService.addOrder(order);
+		return orderService.addOrder(customerId,addressId,order);
 	}
 	
-	@GetMapping("/orders")
+	@GetMapping("/get-orders")
 		public List<Order> getOrder () {
 			return orderService.getAllOrder();
 	}	
 	
 	@GetMapping("/get-order/{orderId}")
-	@ResponseBody
-	public Order getOneOrder(@PathVariable("orderId")Long orderId) {
+	public Order getOrderById(@PathVariable("orderId")Integer orderId) {
 		return orderService.getOrderById(orderId);
 		
 	}
 	
 	
 	@DeleteMapping("/delete-order/{orderId}")
-	public String deleteOrder(@PathVariable("orderId") Long orderId) {
+	public String deleteOrder(@PathVariable("orderId") Integer orderId) {
 		return orderService.deleteOrder(orderId);
 	}
 	
 	
 	@PutMapping("/update-order/{orderId}")
-	public String updateOrder(@PathVariable("orderId") Long orderId,@RequestBody Order order) {
+	public String updateOrder(@PathVariable("orderId") Integer orderId,@RequestBody Order order) {
 		return orderService.updateOrder(orderId,order);
 	
 	}	

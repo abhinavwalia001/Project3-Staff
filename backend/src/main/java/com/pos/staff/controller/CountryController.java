@@ -20,7 +20,7 @@ import com.pos.staff.service.CountryService;
 
 
 @RestController
-@RequestMapping("/api/country")
+@RequestMapping("/api")
 @CrossOrigin("http://localhost:4200")
 public class CountryController {
 	
