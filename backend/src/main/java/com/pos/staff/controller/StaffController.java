@@ -26,27 +26,26 @@ import com.pos.staff.service.StaffService;
 @RequestMapping("/api")
 @CrossOrigin("*")
 public class StaffController {
-	@Autowired(required=true)
+	@Autowired
 	private StaffService staffService;
 	
-	
-	
-	@GetMapping("/staff/{email}")
-	public ResponseEntity<StaffDetails> getStaffByEmail(@PathVariable String email){
-		return new ResponseEntity<>(staffService.getStaffByEmail(email),new HttpHeaders(),HttpStatus.OK);
-	}
-	
-	
-	@PostMapping("/staff")
+	@PostMapping("/add-staff")
 	public ResponseEntity<String> addStaff(@RequestBody StaffDetails staff){
-		
-		return new ResponseEntity<>(staffService.addStaff(staff),new HttpHeaders(),HttpStatus.OK);
+		if(staff.getPassword().length()<8)
+		{
+			return new ResponseEntity<String>("Password must contain atleast 8 characters!",new HttpHeaders(),HttpStatus.OK);
+		}
+		return staffService.addStaff(staff);
 	}
 	
-	@PutMapping("/staff/{email}")
+	@GetMapping("/get-staff/{email}")
+	public ResponseEntity<StaffDetails> getStaff(@PathVariable String email){
+		return staffService.getStaff(email);
+	}
+
+	@PutMapping("/update-staff/{email}")
 	public ResponseEntity<String> updateStaff(@PathVariable String email, @RequestBody StaffDetails staff){
-		
-		return new ResponseEntity<>(staffService.updateStaff(email,staff),new HttpHeaders(),HttpStatus.OK);
+		return staffService.updateStaff(email, staff);
 	}
 	
 	@PostMapping("/staff/login")

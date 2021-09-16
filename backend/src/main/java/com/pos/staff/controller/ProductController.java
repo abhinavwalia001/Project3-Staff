@@ -41,7 +41,7 @@ public class ProductController {
 		return new ResponseEntity<>(productService.getProductByName(name),new HttpHeaders(),HttpStatus.OK);
 	}
 	
-	@PostMapping("/product")
+	@PostMapping("/add-product")
 	public ResponseEntity<String> addProduct(@RequestBody Product product){
 		
 		return new ResponseEntity<>(productService.addProduct(product),new HttpHeaders(),HttpStatus.OK);

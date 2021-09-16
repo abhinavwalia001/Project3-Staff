@@ -32,6 +32,7 @@ public class Product {
 	
 	@Column(nullable=false)
 	private Double tax;
+	
 	@Column(nullable=false)
 	private String brand;
 	
