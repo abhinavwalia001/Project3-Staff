@@ -35,11 +35,10 @@ public class CustomerServiceImpl implements CustomerService{
 	}
 
 	@Override
-	public List<Customer> getCustomerByMobile(Long phoneNumber) {
+	public ResponseEntity<Customer> getCustomerById(Long customerId) {
 		// TODO Auto-generated method stub
-		List<Customer> customerList = customerDao.getByMobile(phoneNumber);
-		
-		return customerList;
+		Customer customerDetails = customerDao.findById(customerId).get();
+		return new ResponseEntity<Customer>(customerDetails,new HttpHeaders(),HttpStatus.OK);
 	}
 
 }

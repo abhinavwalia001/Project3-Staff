@@ -12,7 +12,7 @@ public interface CustomerService {
 
 	public List<Customer> getAllCustomers();
 
-	public List<Customer> getCustomerByMobile(Long phoneNumber);
+	public ResponseEntity<Customer> getCustomerById(Long customerId);
 	
 
 }

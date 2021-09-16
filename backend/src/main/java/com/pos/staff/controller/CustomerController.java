@@ -46,11 +46,10 @@ public class CustomerController {
 		return new ResponseEntity<List<Customer>>(countryList,new HttpHeaders(),HttpStatus.OK);
 	}
 
-	@GetMapping("/customers/{phoneNumber}")
-	public ResponseEntity<List<Customer>> getOneCustomer(@PathVariable("phoneNumber")Long phoneNumber)
+	@GetMapping("/get-customer/{customerId}")
+	public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId")Long phoneNumber)
 	{
-		List<Customer> customerList=customerService.getCustomerByMobile(phoneNumber);
-		return new ResponseEntity<List<Customer>>(customerList,new HttpHeaders(),HttpStatus.OK);
+		return customerService.getCustomerById(phoneNumber);
 	}
 	
 	
