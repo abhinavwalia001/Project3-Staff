@@ -1,5 +1,7 @@
 package com.pos.staff.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -21,6 +23,8 @@ public class OrderItemServiceImpl implements OrderItemService{
 	private OrderDao orderDao;
 	@Autowired
 	private ProductDao productDao;
+	@Autowired 
+	private OrderServiceImpl orderServiceImpl;
 	@Override
 	public ResponseEntity<String> addItems(Integer orderId, Integer productId, OrderItem orderItem) {
 		// TODO Auto-generated method stub
@@ -39,8 +43,18 @@ public class OrderItemServiceImpl implements OrderItemService{
 		orderItem.setProduct(product);
 		orderItem.setPrice(product.getMrp()*orderItem.getQuantity());
 		orderItemDao.save(orderItem);
+		Double sum=orderItemDao.getSumByOrderId(orderId);
+		System.out.println(sum);
+		String res=orderServiceImpl.updateTotalPrice(sum, orderId);
+		System.out.println(res);
 		response=new ResponseEntity<String>("Items added successfully!",new HttpHeaders(),HttpStatus.OK);
 		return response;
+	}
+	@Override
+	public ResponseEntity<List<OrderItem>> getOrderedItems(Integer orderId) {
+		// TODO Auto-generated method stub
+		List<OrderItem> orderedItemsList=orderItemDao.getOrderedItems(orderId);
+		return new ResponseEntity<>(orderedItemsList,new HttpHeaders(),HttpStatus.OK);
 	}
 	
 	

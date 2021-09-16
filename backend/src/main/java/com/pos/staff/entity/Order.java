@@ -2,6 +2,9 @@ package com.pos.staff.entity;
 
 import javax.persistence.Entity;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.ColumnDefault;
+
 import java.time.LocalDate;
 import java.util.List;
 
@@ -25,16 +28,16 @@ public class Order {
 	@Column(name = "order_date")
 	private LocalDate date = LocalDate.now();
 
-	@Column(name = "order_total_price")
+	@Column(name = "order_total_price",columnDefinition ="double default 0.0")
 	private Double totalPrice;
 
-	@Column(name = "order_discount")
+	@Column(name = "order_discount",columnDefinition = "float default 0.0")
 	private Float discount;
 
 	@Column(name = "order_payment_mode")
 	private String modeOfPayment;
 
-	@Column(name = "order_status")
+	@Column(name = "order_status",columnDefinition = "varchar(20) default 'Pending'")
 	private String status;
 
 	@Column(name = "order_tracking")

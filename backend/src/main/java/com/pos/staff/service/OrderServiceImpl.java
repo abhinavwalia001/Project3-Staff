@@ -72,11 +72,31 @@ public class OrderServiceImpl implements OrderService {
 		order.setCustomer(customer);
 		Address address = addressDao.findById(addressId).get();
 		order.setAddress(address);
+		order.setStatus("Pending");
+		order.setTotalPrice(0.0);
 		orderDao.save(order);
+		Long count=orderDao.getCount(customerId);
+		System.out.println(count);
+		if(count>5)
+		{
+			order.setDiscount(5.5f);
+		}
+		else
+		{
+			order.setDiscount(0.0f);
+		}
 		return new ResponseEntity<String>("Order Details Added Successfully!", new HttpHeaders(), HttpStatus.OK);
 
 	}
-
+	public String updateTotalPrice(Double price,Integer orderId)
+	{
+		return orderDao.findById(orderId)
+				.map(order->{
+					order.setTotalPrice(price);
+					orderDao.save(order);
+					return "Price is updated";
+				}).orElse("order id not found!");
+	}
 	@Override
 	public Order getOrderById(Integer orderId) {
 		Optional<Order> optionalOrder = orderDao.findById(orderId);

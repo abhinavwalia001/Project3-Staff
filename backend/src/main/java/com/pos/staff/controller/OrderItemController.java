@@ -1,8 +1,11 @@
 package com.pos.staff.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -25,6 +28,12 @@ public class OrderItemController {
 	public ResponseEntity<String> addItems(@PathVariable("orderId") Integer orderId,@PathVariable("productId") Integer productId,@RequestBody OrderItem orderItem)
 	{
 		return orderItemService.addItems(orderId,productId,orderItem);
+	}
+	
+	@GetMapping("get-items/{orderId}")
+	public ResponseEntity<List<OrderItem>> getOrderedItems(@PathVariable("orderId") Integer orderId)
+	{
+		return orderItemService.getOrderedItems(orderId);
 	}
 
 }
