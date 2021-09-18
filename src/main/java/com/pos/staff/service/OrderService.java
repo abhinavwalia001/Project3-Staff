@@ -16,4 +16,5 @@ public interface OrderService {
 	public Order getOrderById(Integer id);
 
 	public List<Order> getAllOrder();
+	ResponseEntity<OrderListDto> getOrders(Long customerId);
 }

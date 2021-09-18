@@ -28,8 +28,6 @@ import com.pos.staff.service.OrderService;
 @RequestMapping("/customer")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
-
-	
 	@Autowired
 	CustomerService customerService;
 	
@@ -52,5 +50,8 @@ public class CustomerController {
 		return customerService.getCustomerById(phoneNumber);
 	}
 	
-	
+	@PutMapping("/update-customer")
+	public ResponseEntity<String> updateCustomer(@RequestBody Customer customer){
+		return customerService.updateCustomer(customer.getPhoneNumber(),customer);
+	}
 }

@@ -14,5 +14,6 @@ public interface CustomerService {
 
 	public ResponseEntity<Customer> getCustomerById(Long customerId);
 	
+	public ResponseEntity<String> updateCustomer(Long phoneNo, Customer customerDetails);
 
 }

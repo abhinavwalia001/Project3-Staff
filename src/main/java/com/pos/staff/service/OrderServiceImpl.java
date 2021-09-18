@@ -106,6 +106,15 @@ public class OrderServiceImpl implements OrderService {
 			throw new ProductIdNotFoundException("id not found");
 		}
 	}
+	
+	@Override
+	public ResponseEntity<OrderListDto> getOrders(Long customerId){
+		OrderListDto orderListDto=new OrderListDto();
+		Optional<Customer> customer=customerDao.findById(customerId);
+		if(customer.isPresent())
+			orderListDto.setOrderList(customer.get().getOrders());
+		return new ResponseEntity<OrderListDto>(orderListDto, new HttpHeaders(), HttpStatus.OK);
+	}
 
 	@Override
 	public List<Order> getAllOrder() {

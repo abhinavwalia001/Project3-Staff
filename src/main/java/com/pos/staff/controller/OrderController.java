@@ -46,6 +46,11 @@ public class OrderController {
 			return orderService.getAllOrder();
 	}	
 	
+	@GetMapping("/get-orders/{customer-id}")
+	public ResponseEntity<OrderListDto> getOrdersOfCustomer(@PathVariable("customer-id")Long customerId){
+		return orderService.getOrders(customerId);
+	}
+	
 	@GetMapping("/get-order/{orderId}")
 	public Order getOrderById(@PathVariable("orderId")Integer orderId) {
 		return orderService.getOrderById(orderId);
