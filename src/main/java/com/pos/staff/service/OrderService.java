@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.http.ResponseEntity;
 
+import com.pos.staff.dto.OrderListDto;
 import com.pos.staff.entity.Order;
 public interface OrderService {
 

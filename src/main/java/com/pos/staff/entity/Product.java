@@ -4,6 +4,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 
@@ -12,7 +13,8 @@ import javax.persistence.Table;
 public class Product {
 
 	@Id
-	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	@SequenceGenerator(name="product_sequence",sequenceName="product_hibernate_sequence",allocationSize=1)
+	@GeneratedValue(generator="product_sequence")
 	private Integer id;
 	
 	@Column(nullable=false)

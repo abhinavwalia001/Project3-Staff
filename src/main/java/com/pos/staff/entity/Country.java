@@ -7,13 +7,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 	
 @Entity
 @Table(name = "countries")
 public class Country{
-		@Id @GeneratedValue @Column(name = "country_id")
+		@SequenceGenerator(name="country_sequence",sequenceName="country_hibernate_sequence",allocationSize=1)
+		@Id @GeneratedValue(generator="country_sequence") @Column(name = "country_id")
 		private Long id;
 		
 		@Column(name = "country_name", nullable = false)

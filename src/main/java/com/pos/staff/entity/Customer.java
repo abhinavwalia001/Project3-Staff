@@ -4,19 +4,12 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "customers")
-
 public class Customer {
-	
 		@Id @Column(name="customer_id")
 		private Long phoneNumber;
 		
@@ -26,14 +19,10 @@ public class Customer {
 		@Column(name="customer_email")
 		private String email;
 		
+		@Column(name="customer_password")
+		private String password="1111";
 		
-//		@OneToOne(mappedBy="customer") @JsonIgnore
-//		private Wishlist wishlist;
-//		
-//		@OneToOne(mappedBy="customer") @JsonIgnore
-//		private Cart cart;
-		
-		@OneToMany(mappedBy = "customer") @JsonIgnore
+		@OneToMany(mappedBy = "customer") 
 		private List<Address> addresses;
 		
 		@OneToMany(mappedBy="customer") @JsonIgnore
@@ -45,10 +34,6 @@ public class Customer {
 
 		public void setPhoneNumber(Long phoneNumber) {
 			this.phoneNumber = phoneNumber;
-		}
-		
-		public Long getPhoneNumber() {
-			return phoneNumber;
 		}
 
 		public String getName() {
@@ -65,6 +50,15 @@ public class Customer {
 
 		public void setEmail(String email) {
 			this.email = email;
+		}
+		
+
+		public String getPassword() {
+			return password;
+		}
+
+		public void setPassword(String password) {
+			this.password = password;
 		}
 
 		public List<Address> getAddresses() {

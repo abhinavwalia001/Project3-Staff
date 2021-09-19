@@ -13,11 +13,10 @@ import org.springframework.transaction.annotation.Transactional;
 import com.pos.staff.dao.AddressDao;
 import com.pos.staff.dao.CustomerDao;
 import com.pos.staff.dao.OrderDao;
-import com.pos.staff.dao.ProductDao;
+import com.pos.staff.dto.OrderListDto;
 import com.pos.staff.entity.Address;
 import com.pos.staff.entity.Customer;
 import com.pos.staff.entity.Order;
-import com.pos.staff.entity.Product;
 import com.pos.staff.exception.ProductIdNotFoundException;
 
 @Service
@@ -33,9 +32,6 @@ public class OrderServiceImpl implements OrderService {
 
 	@Autowired
 	private AddressDao addressDao;
-
-	@Autowired
-	private ProductDao productDao;
 
 	@Override
 	public String deleteOrder(Integer orderId) {
@@ -76,15 +72,10 @@ public class OrderServiceImpl implements OrderService {
 		order.setTotalPrice(0.0);
 		orderDao.save(order);
 		Long count=orderDao.getCount(customerId);
-		System.out.println(count);
 		if(count>5)
-		{
 			order.setDiscount(5.5f);
-		}
 		else
-		{
 			order.setDiscount(0.0f);
-		}
 		return new ResponseEntity<String>("Order Details Added Successfully!", new HttpHeaders(), HttpStatus.OK);
 
 	}

@@ -10,6 +10,4 @@ public interface OrderDao extends JpaRepository<Order, Integer > {
 
 	@Query("SELECT count(*) FROM Order o WHERE o.customer.phoneNumber=:customerId")
 	Long getCount(@Param("customerId") Long customerId);
-	
-
 }

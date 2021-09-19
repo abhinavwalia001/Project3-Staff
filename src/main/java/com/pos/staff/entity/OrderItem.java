@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +14,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="orderItem")
 public class OrderItem {
-	@Id @GeneratedValue @Column(name="order_item_id")
+	@SequenceGenerator(name="order_item_sequence",sequenceName="order_item_hibernate_sequence",allocationSize=1)
+	@Id @GeneratedValue(generator="order_item_sequence") @Column(name="order_item_id")
 	private Integer id;
 		
 	@Column(name="order_item_quantity")

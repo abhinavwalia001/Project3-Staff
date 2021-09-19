@@ -1,9 +1,8 @@
 package com.pos.staff.entity;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Table;
-
-import org.hibernate.annotations.ColumnDefault;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -14,16 +13,16 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 
 @Entity
 @Table(name = "orders")
-
 public class Order {
-
 	@Id
-	@GeneratedValue
+	@SequenceGenerator(name="order_sequence",sequenceName="order_hibernate_sequence",allocationSize=1)
+	@GeneratedValue(generator="order_sequence")
 	@Column(name = "order_id")
-	private Integer orderId;
+	private Integer id;
 
 	@Column(name = "order_date")
 	private LocalDate date = LocalDate.now();
@@ -47,19 +46,19 @@ public class Order {
 	@JoinColumn(name = "customer_id")
 	private Customer customer;
 
-	@ManyToOne()
+	@ManyToOne(fetch=FetchType.EAGER)
 	@JoinColumn(name = "address_id")
 	private Address address;
 
-	@OneToMany(mappedBy = "order")
+	@OneToMany(mappedBy = "order",fetch=FetchType.EAGER)
 	private List<OrderItem> orderItems;
 
-	public Integer getOrderId() {
-		return orderId;
+	public Integer getId() {
+		return id;
 	}
 
-	public void setOrderId(Integer orderId) {
-		this.orderId = orderId;
+	public void setId(Integer id) {
+		this.id = id;
 	}
 
 	public LocalDate getDate() {
@@ -136,9 +135,8 @@ public class Order {
 
 	@Override
 	public String toString() {
-		return "Order [orderId=" + orderId + ", date=" + date + ", totalPrice=" + totalPrice + ", discount=" + discount
+		return "Order [orderId=" + id + ", date=" + date + ", totalPrice=" + totalPrice + ", discount=" + discount
 				+ ", modeOfPayment=" + modeOfPayment + ", status=" + status + ", tracking=" + tracking + ", address="
 				+ address + ", customer=" + customer + ", orderItems=" + orderItems + "]";
 	}
-
 }

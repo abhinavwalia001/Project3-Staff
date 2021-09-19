@@ -5,7 +5,10 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,8 +17,8 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "addresses")
 public class Address {
-
-		@Id @GeneratedValue @Column(name="address_id")
+	    @SequenceGenerator(name="address_sequence",sequenceName="address_hibernate_sequence",allocationSize=1)
+		@Id @GeneratedValue(generator="address_sequence") @Column(name="address_id")
 		private Long id;
 		
 		@Column(name = "address_line")
@@ -30,7 +33,7 @@ public class Address {
 		@ManyToOne @JoinColumn(name = "state_id")
 		private State state;
 		
-		@ManyToOne @JoinColumn(name = "customer_id")
+		@ManyToOne @JoinColumn(name = "customer_id") @JsonIgnore
 		private Customer customer;
 
 		public Long getId() {

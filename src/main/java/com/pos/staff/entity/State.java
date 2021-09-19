@@ -8,13 +8,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "states")
 public class State{
-	@Id @GeneratedValue @Column(name = "state_id")
+	@Id @SequenceGenerator(name="state_sequence",sequenceName="state_hibernate_sequence",allocationSize=1) @GeneratedValue(generator="state_sequence") @Column(name = "state_id")
 	private Long id;
 		
 	@Column(name = "state_name")
