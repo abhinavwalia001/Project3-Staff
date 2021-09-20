@@ -29,7 +29,7 @@ public class OrderItemController {
 		return orderItemService.addItems(orderId,productId,orderItem);
 	}
 	
-	@GetMapping("get-items/{orderId}")
+	@GetMapping("/get-items/{orderId}")
 	public ResponseEntity<List<OrderItem>> getOrderedItems(@PathVariable("orderId") Integer orderId)
 	{
 		return orderItemService.getOrderedItems(orderId);
