@@ -50,7 +50,7 @@ public class OrderController {
 	        ByteArrayInputStream bis = PDFGenerator.customerPDFReport(orders);
 	
 	        HttpHeaders headers = new HttpHeaders();
-	        headers.add("Content-Disposition", "inline; filename=inventory.pdf");
+	        headers.add("Content-Disposition", "inline; filename=salesReport.pdf");
 	
 	        return ResponseEntity
 	                .ok()
