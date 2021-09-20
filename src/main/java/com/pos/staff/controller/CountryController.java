@@ -8,6 +8,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,4 +31,9 @@ public class CountryController {
 		return new ResponseEntity<List<Country>>(countryList,new HttpHeaders(),HttpStatus.OK);
 	}
 
+	@PostMapping("/country/save") 
+	public ResponseEntity<String> save(@RequestBody Country country) {
+		
+		return countryService.addCountry(country);
+	}
 }
