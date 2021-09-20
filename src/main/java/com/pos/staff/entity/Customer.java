@@ -10,6 +10,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name = "customers")
 public class Customer {
+	
 		@Id @Column(name="customer_id")
 		private Long phoneNumber;
 		
@@ -20,12 +21,10 @@ public class Customer {
 		private String email;
 		
 		@Column(name="customer_password")
-		private String password="1111";
+		private String password;
 		
-		@OneToMany(mappedBy = "customer") 
-		private List<Address> addresses;
-		
-		@OneToMany(mappedBy="customer") @JsonIgnore
+		@OneToMany(mappedBy="customer")
+		@JsonIgnore
 		private List<Order> orders;
 
 		public Long getPhoneNumber() {
@@ -61,14 +60,6 @@ public class Customer {
 			this.password = password;
 		}
 
-		public List<Address> getAddresses() {
-			return addresses;
-		}
-
-		public void setAddresses(List<Address> addresses) {
-			this.addresses = addresses;
-		}
-
 		public List<Order> getOrders() {
 			return orders;
 		}
@@ -77,12 +68,7 @@ public class Customer {
 			this.orders = orders;
 		}
 
-		@Override
-		public String toString() {
-			return "Customer [phoneNumber=" + phoneNumber + ", name=" + name + ", email=" + email + ", addresses="
-					+ addresses + ", orders=" + orders + "]";
-		}
-		
+
 		
 		
 }

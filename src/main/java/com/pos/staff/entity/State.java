@@ -1,16 +1,14 @@
 package com.pos.staff.entity;
 
-import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
 @Entity
 @Table(name = "states")
@@ -21,12 +19,10 @@ public class State{
 	@Column(name = "state_name")
 	private String name;
 		
-	@ManyToOne @JoinColumn(name = "country_id") @JsonIgnore
+	@ManyToOne
+	@JoinColumn(name = "country_id") 
 	private Country country;
 		
-	@OneToMany(mappedBy="state") @JsonIgnore
-	private List<Address> addresses;
-
 	public Long getId() {
 		return id;
 	}
@@ -49,19 +45,6 @@ public class State{
 
 	public void setCountry(Country country) {
 		this.country = country;
-	}
-
-	public List<Address> getAddresses() {
-		return addresses;
-	}
-
-	public void setAddresses(List<Address> addresses) {
-		this.addresses = addresses;
-	}
-
-	@Override
-	public String toString() {
-		return "State [id=" + id + ", name=" + name + ", country=" + country + ", addresses=" + addresses + "]";
 	}
 	
 	

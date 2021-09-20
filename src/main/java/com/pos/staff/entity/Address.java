@@ -8,11 +8,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "addresses")
@@ -30,10 +26,12 @@ public class Address {
 		@Column(name = "address_pincode")
 		private Long pinCode;
 		
-		@ManyToOne @JoinColumn(name = "state_id")
+		@ManyToOne 
+		@JoinColumn(name = "state_id")
 		private State state;
 		
-		@ManyToOne @JoinColumn(name = "customer_id") @JsonIgnore
+		@ManyToOne
+		@JoinColumn(name = "customer_id") 
 		private Customer customer;
 
 		public Long getId() {

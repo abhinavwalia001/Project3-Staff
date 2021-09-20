@@ -28,6 +28,7 @@ public class CustomerController {
 	@PostMapping("/add-customer")
 	public ResponseEntity<String> addCustomer(@RequestBody Customer customer)
 	{
+		customer.setPassword(String.valueOf(customer.getPhoneNumber()));
 		return customerService.addCustomer(customer);
 	}
 	
