@@ -19,7 +19,7 @@ import com.pos.staff.entity.Customer;
 import com.pos.staff.service.CustomerService;
 
 @RestController
-@RequestMapping("/customer")
+@RequestMapping("api/customer")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
 	@Autowired

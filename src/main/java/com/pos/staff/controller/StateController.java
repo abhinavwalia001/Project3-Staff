@@ -9,6 +9,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,4 +31,8 @@ public class StateController {
 		return new ResponseEntity<List<State>>(stateList,new HttpHeaders(),HttpStatus.OK);
 	}
 
+	@PostMapping("/country/{id}/save")
+	public ResponseEntity<String> save(@PathVariable Long id, @RequestBody State state) {
+		return stateService.addState(id, state);
+	}
 }

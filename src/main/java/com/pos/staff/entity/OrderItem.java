@@ -3,6 +3,7 @@ package com.pos.staff.entity;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -14,8 +15,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 @Entity
 @Table(name="orderItem")
 public class OrderItem {
-	@SequenceGenerator(name="order_item_sequence",sequenceName="order_item_hibernate_sequence",allocationSize=1)
-	@Id @GeneratedValue(generator="order_item_sequence") @Column(name="order_item_id")
+	//@SequenceGenerator(name="order_item_sequence",sequenceName="order_item_hibernate_sequence",allocationSize=1)
+	@Id @GeneratedValue(strategy=GenerationType.IDENTITY) @Column(name="order_item_id")
 	private Integer id;
 		
 	@Column(name="order_item_quantity")
@@ -27,7 +28,7 @@ public class OrderItem {
 	@ManyToOne @JoinColumn(name="order_id") @JsonIgnore
 	private Order order;
 		
-	@ManyToOne @JoinColumn(name="product_id") @JsonIgnore
+	@ManyToOne @JoinColumn(name="product_id")
 	private Product product;
 
 	public Integer getId() {
