@@ -24,7 +24,7 @@ import com.pos.staff.service.CustomerService;
 public class CustomerController {
 	@Autowired
 	CustomerService customerService;
-	
+	    
 	@PostMapping("/customer")
 	public ResponseEntity<String> addCustomer(@RequestBody Customer customer)
 	{
@@ -39,7 +39,7 @@ public class CustomerController {
 		return new ResponseEntity<List<Customer>>(countryList,new HttpHeaders(),HttpStatus.OK);
 	}
 
-	@GetMapping("/get-customer/{customerId}")
+	@GetMapping("/customer/{customerId}")
 	public ResponseEntity<Customer> getCustomerById(@PathVariable("customerId")Long phoneNumber)
 	{
 		return customerService.getCustomerById(phoneNumber);
