@@ -113,5 +113,12 @@ public class OrderServiceImpl implements OrderService {
 
 	}
 
+	@Override
+	public Integer getOrderId(Long userId) {
+		// TODO Auto-generated method stub
+		Integer orderId= orderDao.getOrderId(userId,"Pending");
+		return orderId;
+	}
+
 	
 }

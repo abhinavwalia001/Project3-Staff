@@ -19,20 +19,20 @@ import com.pos.staff.entity.Customer;
 import com.pos.staff.service.CustomerService;
 
 @RestController
-@RequestMapping("api/customer")
+@RequestMapping("/api")
 @CrossOrigin("http://localhost:4200")
 public class CustomerController {
 	@Autowired
 	CustomerService customerService;
-	
-	@PostMapping("/add-customer")
+	    
+	@PostMapping("/customer")
 	public ResponseEntity<String> addCustomer(@RequestBody Customer customer)
 	{
 		customer.setPassword(String.valueOf(customer.getPhoneNumber()));
 		return customerService.addCustomer(customer);
 	}
 	
-	@GetMapping("/customers")
+	@GetMapping("/customer")
 	public ResponseEntity<List<Customer>> getCustomerList() 
 	{
 		List<Customer> countryList = customerService.getAllCustomers();

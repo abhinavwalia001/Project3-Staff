@@ -93,7 +93,11 @@ public class OrderController {
 		return orderService.getOrderById(orderId);
 		
 	}
-	
+	@GetMapping("/order/{userId}")
+	public Integer getOrderId(@PathVariable("userId") Long userId)
+	{
+		return orderService.getOrderId(userId);
+	}
 	
 	@DeleteMapping("/delete-order/{orderId}")
 	public String deleteOrder(@PathVariable("orderId") Integer orderId) {
