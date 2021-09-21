@@ -52,7 +52,7 @@ public class OrderServiceImpl implements OrderService {
 			order.setStatus(orderUpdated.getStatus());
 			order.setTracking(orderUpdated.getTracking());
 			orderDao.save(order);
-			return "Order updated successfully!";
+			return "Transaction Completed successfully!";
 		}).orElseThrow(() -> new ProductIdNotFoundException("error updating"));
 	}
 

@@ -41,7 +41,13 @@ public class OrderItemServiceImpl implements OrderItemService{
 		orderItem.setOrder(order);
 		Product product=productDao.findById(productId).get();
 		orderItem.setProduct(product);
-		orderItem.setPrice(product.getMrp()*orderItem.getQuantity());
+		if(order.getDiscount()==5.5)
+		{
+			orderItem.setPrice((((product.getMrp()*orderItem.getQuantity())-order.getDiscount())+product.getTax()));
+		}
+		else {
+		orderItem.setPrice((product.getMrp()*orderItem.getQuantity())+product.getTax());
+		}
 		orderItemDao.save(orderItem);
 		Double sum=orderItemDao.getSumByOrderId(orderId);
 		System.out.println(sum);
