@@ -24,7 +24,7 @@ import com.pos.staff.service.CustomerService;
 public class CustomerController {
 	@Autowired
 	CustomerService customerService;
-	
+	    
 	@PostMapping("/customer")
 	public ResponseEntity<String> addCustomer(@RequestBody Customer customer)
 	{
