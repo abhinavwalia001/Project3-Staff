@@ -21,7 +21,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pos.staff.dto.OrderListDto;
 import com.pos.staff.entity.Order;
 import com.pos.staff.service.OrderService;
+import com.pos.staff.util.pdfreport.BillPdfGenerator;
 import com.pos.staff.util.pdfreport.PDFGenerator;
+
 
 @RestController
 @RequestMapping("/api")
@@ -62,8 +64,28 @@ public class OrderController {
 	}
 		
 	@GetMapping("/get-orders/{customer-id}")
-	public ResponseEntity<OrderListDto> getOrdersOfCustomer(@PathVariable("customer-id")Long customerId){
+	public ResponseEntity<OrderListDto> getOrdersOfCustomer(@PathVariable("customer-id") Long customerId){
 		return orderService.getOrders(customerId);
+	}
+	
+	
+	@GetMapping(value = "/get-bill/pdf/{orderId}",
+            produces = MediaType.APPLICATION_PDF_VALUE)
+	    public ResponseEntity<InputStreamResource> billReport(@PathVariable("orderId") Integer orderId) {
+	        Order order =  orderService.getOrderById(orderId);
+	
+	        ByteArrayInputStream bis = BillPdfGenerator.customerBillPDFReport(order);
+	
+	        HttpHeaders headers = new HttpHeaders();
+	        headers.add("Content-Disposition", "inline; filename=Bill.pdf");
+	
+	        return ResponseEntity
+	                .ok()
+	                .headers(headers)
+	                .contentType(MediaType.APPLICATION_PDF)
+	                .body(new InputStreamResource(bis));
+		
+			
 	}
 	
 	@GetMapping("/get-order/{orderId}")
